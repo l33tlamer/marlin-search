@@ -23,5 +23,8 @@ EXPOSE 5000
 # Set environment variables
 ENV NODE_ENV production
 
+# very basic healtcheck using wget
+HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --start-interval=15s --retries=3 CMD wget --no-verbose --tries=1 --spider http://localhost:5000/up || exit 1
+
 # Command to run the application
 CMD ["npm", "start"]
