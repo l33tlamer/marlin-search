@@ -1,5 +1,5 @@
 
-# Examples using `curl` to get started:
+## Examples using `curl` to get started:
 
 Create the initial index, use your `EXPRESS_AUTH_TOKEN` and URL to the `marlin-search` instance:
 
