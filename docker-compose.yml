@@ -1,35 +1,38 @@
 services:
   marlin-search-indexer:
-    build: .
+    image: ghcr.io/l33tlamer/marlin-search:latest
     container_name: marlin-search-indexer
+    networks:
+      - marlin-network
     ports:
       - "5000:5000"
+    depends_on:
+      marlin-search-meilisearch:
+        condition: service_healthy
     environment:
-      - NODE_ENV=production
       - JELLYFIN_URL=${JELLYFIN_URL}
       - JELLYFIN_API_KEY=${JELLYFIN_API_KEY}
-      - MEILISEARCH_API_KEY=${MEILISEARCH_API_KEY}
-      - SCRAPE_INTERVAL_MINUTES=${SCRAPE_INTERVAL_MINUTES}
-      - EXPRESS_AUTH_TOKEN=${EXPRESS_AUTH_TOKEN}
-      - BATCH_SIZE=${BATCH_SIZE}
       - MEILISEARCH_URL=http://marlin-search-meilisearch:7700
-    depends_on:
-      - marlin-search-meilisearch
-    networks:
-      - marlin-network
+      - MEILISEARCH_API_KEY=${MEILISEARCH_API_KEY}
+      - EXPRESS_AUTH_TOKEN=${EXPRESS_AUTH_TOKEN}
+      - SCRAPE_INTERVAL_MINUTES=${SCRAPE_INTERVAL_MINUTES}
+      - BATCH_SIZE=${BATCH_SIZE}
+      - NODE_ENV=production
 
   marlin-search-meilisearch:
-    image: getmeili/meilisearch:latest
+    image: getmeili/meilisearch:v1.34
     container_name: marlin-search-meilisearch
-    ports:
-      - "7707:7700"
-    environment:
-      - MEILI_ENV=production
-      - MEILI_MASTER_KEY=${MEILISEARCH_API_KEY}
-    volumes:
-      - meili_data:/meili_data
     networks:
       - marlin-network
+    ports:
+      - "7700:7700"
+    environment:
+      - MEILI_MASTER_KEY=${MEILISEARCH_API_KEY}
+      - MEILI_ENV=production
+    volumes:
+      - meili_data:/meili_data
+    healthcheck:
+       test: curl --fail -s http://localhost:7700/health | grep -Eo '\"status\":\"available\"' || exit 1
 
 volumes:
   meili_data:
