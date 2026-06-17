@@ -1,3 +1,35 @@
+
+# Examples using `curl` to get started:
+
+Create the initial index, use your `EXPRESS_AUTH_TOKEN` and URL to the `marlin-search` instance:
+
+````
+curl -H 'Authorization: Bearer YYYYYY' \
+       -X POST \
+       http://192.168.1.20:5000/create-index
+````
+
+Optional: Query `Meilisearch` directly to list all indexes, use your Meili Master key, `jellyfin_items` should exist:
+
+````
+curl -H 'Authorization: Bearer YYYYYY' \
+       -X POST \
+       http://192.168.1.30:7700/indexes
+````
+
+Optional: Delete the current `Marlinsearch` index:
+
+````
+curl -H 'Authorization: Bearer ZZZZZZ' \
+       -X POST \
+       http://192.168.1.20:5000/delete-index
+````
+
+____
+
+# The following is the original Readme:
+____
+
 # Marlin Search
 
 > A lightweight search companion for Jellyfin, built with TypeScript, Express, and Meilisearch.
