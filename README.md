@@ -12,7 +12,7 @@ curl -H 'Authorization: Bearer YYYYYY' \
 Optional: Query `Meilisearch` directly to list all indexes, use your Meili Master key, `jellyfin_items` should exist:
 
 ````
-curl -H 'Authorization: Bearer YYYYYY' \
+curl -H 'Authorization: Bearer XXXXXX' \
        -X POST \
        http://192.168.1.30:7700/indexes
 ````
@@ -20,7 +20,7 @@ curl -H 'Authorization: Bearer YYYYYY' \
 Optional: Delete the current `Marlinsearch` index:
 
 ````
-curl -H 'Authorization: Bearer ZZZZZZ' \
+curl -H 'Authorization: Bearer YYYYYY' \
        -X POST \
        http://192.168.1.20:5000/delete-index
 ````
