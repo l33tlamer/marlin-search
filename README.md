@@ -25,6 +25,10 @@ curl -H 'Authorization: Bearer YYYYYY' \
        http://192.168.1.20:5000/delete-index
 ````
 
+For more info see the Meilisearch documentation:
+
+https://www.meilisearch.com/docs/reference/api/indexes/list-all-indexes
+
 ____
 
 # The following is the original Readme:
